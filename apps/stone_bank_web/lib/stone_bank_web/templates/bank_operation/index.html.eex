@@ -1,0 +1,24 @@
+<h1>Listing Bank operations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Type</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for bank_operation <- @bank_operations do %>
+    <tr>
+      <td><%= bank_operation.value %></td>
+      <td><%= bank_operation.type %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.bank_operation_path(@conn, :show, bank_operation) %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

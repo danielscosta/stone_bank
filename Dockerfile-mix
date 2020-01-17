@@ -1,0 +1,31 @@
+# https://hub.docker.com/_/elixir/
+FROM elixir:1.9-alpine
+
+# init
+RUN apk update && \
+    apk add ca-certificates && update-ca-certificates && \
+    apk add git bash postgresql-client openssl curl yarn && \
+    mix local.hex --force && \
+    mix local.rebar --force && \
+    mkdir -p /stone_bank 
+
+COPY . /stone_bank
+ENV MIX_ENV=prod
+
+# get and compile elixir deps
+RUN apk add --update alpine-sdk coreutils
+
+RUN cd /stone_bank && \
+    mix deps.get && (cd deps/bcrypt_elixir && make clean && make) && mix compile
+
+RUN cd /stone_bank/apps/stone_bank_web/assets && \
+  yarn install && \
+  yarn deploy && \
+  cd .. && \
+  mix phx.digest
+
+WORKDIR /stone_bank
+
+EXPOSE 4000
+
+CMD ["sh", "-c", "mix phx.server"]
