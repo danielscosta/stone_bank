@@ -2,10 +2,6 @@
 
 ## To up the system
 
-Create database 
-
-`$ docker-compose run web mix do ecto.create, ecto.migrate`
-
 To run test and credo
 
 `$ docker-compose run --rm test`
@@ -13,6 +9,10 @@ To run test and credo
 To run coveralls
 
 `$ docker-compose run --rm test mix coveralls --umbrella`
+
+Create database 
+
+`$ docker-compose run web mix do ecto.create, ecto.migrate`
 
 Run release of the phoenix server:
 
