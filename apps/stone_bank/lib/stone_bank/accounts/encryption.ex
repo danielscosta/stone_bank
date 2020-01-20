@@ -4,5 +4,6 @@ defmodule StoneBank.Accounts.Encryption do
 
   def hash_password(password), do: Bcrypt.hash_pwd_salt(password)
 
-  def validate_password(%User{} = user, password), do: Bcrypt.verify_pass(user.password, password)
+  def validate_password(%User{} = user, password),
+    do: Bcrypt.verify_pass(password, user.encrypted_password)
 end

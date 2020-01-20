@@ -27,6 +27,7 @@ defmodule StoneBank.Accounts.User do
     |> downcase_email
     |> encrypt_password
     |> validate_required(@required)
+    |> unique_constraint(:email)
   end
 
   defp encrypt_password(changeset) do

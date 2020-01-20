@@ -16,13 +16,22 @@ defmodule StoneBankWeb.Router do
   scope "/", StoneBankWeb do
     pipe_through :browser
 
+    get "/login", PageController, :new
+    post "/login", PageController, :create
+    resources "/users", UserController, only: [:new, :create]
+  end
+
+  scope "/", StoneBankWeb do
+    pipe_through [:browser, StoneBankWeb.Plugs.AdminAuth]
+
     get "/", PageController, :index
-    resources "/users", UserController, except: [:delete]
+    delete "/", PageController, :delete
+    resources "/users", UserController, except: [:new, :delete, :create]
     resources "/bank_operations", BankOperationController, only: [:index, :show]
   end
 
   scope "/api", StoneBankWeb do
-    pipe_through :api
+    pipe_through [:browser, StoneBankWeb.Plugs.Auth]
 
     resources "/bank_accounts", BankAccountController, only: [:create, :show]
     put "/bank_accounts/deposit", BankAccountController, :deposit

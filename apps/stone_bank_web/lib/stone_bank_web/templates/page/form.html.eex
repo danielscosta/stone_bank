@@ -1,0 +1,8 @@
+<%= form_for @conn, @action, [as: :session], fn f -> %>
+  <%= email_input f, :email, placeholder: "Email" %>
+  <%= password_input f, :password, placeholder: "Password" %>
+  
+  <div>
+    <%= submit "Submit" %>
+  </div>
+<% end %>

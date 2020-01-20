@@ -1,35 +1,15 @@
 <section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>A productive web framework that<br/>does not compromise speed or maintainability.</p>
+  <h1><%= gettext "Welcome to %{name}!", name: "StoneBank" %></h1>
+  <p>A new modern Bank to you.</p>
 </section>
 
 <section class="row">
   <article class="column">
     <h2>Resources</h2>
     <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
+      <li><%= link "Bank Operations", to: Routes.bank_operation_path(@conn, :index) %></li>
+      <li><%= link "Users", to: Routes.user_path(@conn, :index) %></li>
+      <li><%= link "Logout", to: Routes.page_path(@conn, :delete), method: :delete %></li>     
     </ul>
   </article>
 </section>
