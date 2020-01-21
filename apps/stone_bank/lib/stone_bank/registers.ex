@@ -22,6 +22,21 @@ defmodule StoneBank.Registers do
   end
 
   @doc """
+  Returns the list of bank_operations between dates.
+
+  ## Examples
+
+      iex> list_bank_operations_between_dates(initial_date, final_date))
+      [%BankOperation{}, ...]
+
+  """
+  def list_bank_operations_between_dates(initial_date, final_date) do
+    BankOperation
+    |> where([b], b.inserted_at >= ^initial_date and b.inserted_at <= ^final_date)
+    |> Repo.all()
+  end
+
+  @doc """
   Gets a single bank_operation.
 
   Raises `Ecto.NoResultsError` if the Bank operation does not exist.

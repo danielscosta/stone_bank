@@ -45,6 +45,7 @@ defmodule StoneBankWeb.MixProject do
       {:stone_bank, in_umbrella: true},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
+      {:timex, "~> 3.6"},
       {:bcrypt_elixir, "~> 2.0"}
     ]
   end

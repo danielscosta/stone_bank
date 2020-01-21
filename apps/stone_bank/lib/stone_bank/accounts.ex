@@ -44,14 +44,14 @@ defmodule StoneBank.Accounts do
 
   ## Examples
 
-      iex> get_user_by_email(email)
+      iex> get_user_by_email!(email)
       %User{}
 
-      iex> get_user_by_email(email)
+      iex> get_user_by_email!(email)
       ** (Ecto.NoResultsError)
 
   """
-  def get_user_by_email(email), do: Repo.get_by!(User, email: email)
+  def get_user_by_email!(email), do: Repo.get_by!(User, email: email)
 
   @doc """
   Creates a user.

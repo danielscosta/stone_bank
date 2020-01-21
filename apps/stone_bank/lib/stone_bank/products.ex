@@ -5,8 +5,24 @@ defmodule StoneBank.Products do
 
   import Ecto.Query, warn: false
   alias StoneBank.Repo
+  require Logger
 
   alias StoneBank.Products.BankAccount
+
+  @doc """
+  List bank_account by user_id.
+
+  ## Examples
+
+      iex> list_bank_account_user_id(user_id)
+      [%BankAccount{}]
+
+  """
+  def list_bank_account_user_id(user_id) do
+    BankAccount
+    |> where([b], b.user_id == ^user_id)
+    |> Repo.all()
+  end
 
   @doc """
   Gets a single bank_account.
@@ -51,30 +67,44 @@ defmodule StoneBank.Products do
   ## Examples
 
       iex> deposit_bank_account(%{value: value, bank_account_id: bank_account_id})
-      {:ok, %{update_bank_account: %{1, _}, back_operation: back_operation}}
+      {:ok, %{update_bank_account: 1, back_operation: back_operation}}
 
       iex> deposit_bank_account(%{value: value, bank_account_id: bank_account_id})
-      {:ok, %{update_bank_account: %{0, _}}}
+      {:error, _}
 
   """
-  def deposit_bank_account(%{value: value, bank_account_id: bank_account_id}) do
+  def deposit_bank_account(%{value: value, bank_account_id: bank_account_id, user_id: user_id}) do
     Multi.new()
     |> Multi.run(:update_bank_account, fn repo, _changes ->
-      from(ba in BankAccount,
-        where: ba.bank_account_id == ^bank_account_id,
-        update: [set: [balance: ba.balance + ^value]]
-      )
-      |> repo.update_all([])
+      {number, nil} =
+        from(ba in BankAccount,
+          where: ba.id == ^bank_account_id and ba.user_id == ^user_id,
+          update: [set: [balance: ba.balance + ^value]]
+        )
+        |> repo.update_all([])
+
+      {:ok, number}
     end)
     |> Multi.run(:back_operation, fn _repo, %{update_bank_account: update_bank_account} ->
       case update_bank_account do
-        {1, _} ->
+        1 ->
           Registers.create_bank_operation(%{
             value: value,
             type: "deposit",
             bank_account_id: bank_account_id
           })
+
+        _ ->
+          {:error, nil}
       end
+    end)
+    |> Multi.run(:send_email, fn _repo, %{back_operation: back_operation} ->
+      ## Here will be the send of a email
+      Logger.info(
+        "Back Account Deposit made #{back_operation.bank_account_id}: #{back_operation.value}"
+      )
+
+      {:ok, nil}
     end)
     |> Repo.transaction()
   end
@@ -85,30 +115,45 @@ defmodule StoneBank.Products do
   ## Examples
 
       iex> withdraw_bank_account(%{value: value, bank_account_id: bank_account_id})
-      {:ok, %{update_bank_account: %{1, _}, back_operation: back_operation}}
+      {:ok, %{update_bank_account: 1, back_operation: back_operation}}
 
       iex> withdraw_bank_account(%{value: value, bank_account_id: bank_account_id})
-      {:ok, %{update_bank_account: %{0, _}}}
+      {:error, _}
 
   """
-  def withdraw_bank_account(%{value: value, bank_account_id: bank_account_id}) do
+  def withdraw_bank_account(%{value: value, bank_account_id: bank_account_id, user_id: user_id}) do
     Multi.new()
     |> Multi.run(:update_bank_account, fn repo, _changes ->
-      from(ba in BankAccount,
-        where: ba.bank_account_id == ^bank_account_id and ba.balance - ^value >= 0,
-        update: [set: [balance: ba.balance - ^value]]
-      )
-      |> repo.update_all([])
+      {number, nil} =
+        from(ba in BankAccount,
+          where:
+            ba.id == ^bank_account_id and ba.balance - ^value >= 0 and ba.user_id == ^user_id,
+          update: [set: [balance: ba.balance - ^value]]
+        )
+        |> repo.update_all([])
+
+      {:ok, number}
     end)
     |> Multi.run(:back_operation, fn _repo, %{update_bank_account: update_bank_account} ->
       case update_bank_account do
-        {1, _} ->
+        1 ->
           Registers.create_bank_operation(%{
             value: value,
             type: "withdraw",
             bank_account_id: bank_account_id
           })
+
+        _ ->
+          {:error, nil}
       end
+    end)
+    |> Multi.run(:send_email, fn _repo, %{back_operation: back_operation} ->
+      ## Here will be the send of a email
+      Logger.info(
+        "Back Account Withdraw made #{back_operation.bank_account_id}: #{back_operation.value}"
+      )
+
+      {:ok, nil}
     end)
     |> Repo.transaction()
   end
@@ -119,47 +164,71 @@ defmodule StoneBank.Products do
   ## Examples
 
       iex> transfer_bank_account(%{value: value, bank_account_id: bank_account_id, bank_account_destiny_id: bank_account_destiny_id})
-      {:ok, %{update_bank_account: %{1, _}, update_bank_account_destiny: %{1, _}, back_operation: back_operation}}
+      {:ok, %{update_bank_account: 1, update_bank_account_destiny: 1, back_operation: back_operation}}
 
       iex> transfer_bank_account(%{value: value, bank_account_id: bank_account_id})
-      {:ok, %{update_bank_account: %{0, _}}}
+      {:error, _}
 
   """
   def transfer_bank_account(%{
         value: value,
         bank_account_id: bank_account_id,
-        bank_account_destiny_id: bank_account_destiny_id
+        bank_account_destiny_id: bank_account_destiny_id,
+        user_id: user_id
       }) do
     Multi.new()
     |> Multi.run(:update_bank_account, fn repo, _changes ->
-      from(ba in BankAccount,
-        where: ba.bank_account_id == ^bank_account_id and ba.balance - ^value >= 0,
-        update: [set: [balance: ba.balance - ^value]]
-      )
-      |> repo.update_all([])
+      {number, nil} =
+        from(ba in BankAccount,
+          where:
+            ba.id == ^bank_account_id and ba.balance - ^value >= 0 and ba.user_id == ^user_id,
+          update: [set: [balance: ba.balance - ^value]]
+        )
+        |> repo.update_all([])
+
+      {:ok, number}
     end)
     |> Multi.run(:update_bank_account_destiny, fn repo,
                                                   %{update_bank_account: update_bank_account} ->
       case update_bank_account do
-        {1, _} ->
-          from(ba in BankAccount,
-            where: ba.bank_account_id == ^bank_account_id,
-            update: [set: [balance: ba.balance + ^value]]
-          )
-          |> repo.update_all([])
+        1 ->
+          {number, nil} =
+            from(ba in BankAccount,
+              where: ba.id == ^bank_account_destiny_id,
+              update: [set: [balance: ba.balance + ^value]]
+            )
+            |> repo.update_all([])
+
+          {:ok, number}
+
+        _ ->
+          {:error, nil}
       end
     end)
     |> Multi.run(:back_operation, fn _repo,
                                      %{update_bank_account_destiny: update_bank_account_destiny} ->
       case update_bank_account_destiny do
-        {1, _} ->
+        1 ->
           Registers.create_bank_operation(%{
             value: value,
             type: "transfer",
             bank_account_id: bank_account_id,
             bank_account_destiny_id: bank_account_destiny_id
           })
+
+        _ ->
+          {:error, nil}
       end
+    end)
+    |> Multi.run(:send_email, fn _repo, %{back_operation: back_operation} ->
+      ## Here will be the send of a email
+      Logger.info(
+        "Back Account Trasfer made #{back_operation.bank_account_id} to #{
+          back_operation.bank_account_destiny_id
+        }: #{back_operation.value}"
+      )
+
+      {:ok, nil}
     end)
     |> Repo.transaction()
   end

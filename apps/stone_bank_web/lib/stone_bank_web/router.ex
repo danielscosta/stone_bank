@@ -11,6 +11,7 @@ defmodule StoneBankWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
   end
 
   scope "/", StoneBankWeb do
@@ -27,13 +28,19 @@ defmodule StoneBankWeb.Router do
     get "/", PageController, :index
     delete "/", PageController, :delete
     resources "/users", UserController, except: [:new, :delete, :create]
-    resources "/bank_operations", BankOperationController, only: [:index, :show]
+    resources "/bank_operations", BankOperationController, only: [:index]
   end
 
   scope "/api", StoneBankWeb do
-    pipe_through [:browser, StoneBankWeb.Plugs.Auth]
+    pipe_through :api
 
-    resources "/bank_accounts", BankAccountController, only: [:create, :show]
+    post "/login", PageController, :create
+  end
+
+  scope "/api", StoneBankWeb do
+    pipe_through [:api, StoneBankWeb.Plugs.Auth]
+
+    resources "/bank_accounts", BankAccountController, only: [:create, :index]
     put "/bank_accounts/deposit", BankAccountController, :deposit
     put "/bank_accounts/withdraw", BankAccountController, :withdraw
     put "/bank_accounts/transfer", BankAccountController, :transfer

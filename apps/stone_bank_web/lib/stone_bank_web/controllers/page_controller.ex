@@ -9,8 +9,7 @@ defmodule StoneBankWeb.PageController do
     render(conn, "new.html")
   end
 
-  @spec create(Plug.Conn.t(), map()) :: Plug.Conn.t()
-  def create(conn, %{"session" => auth_params}) do
+  def create(%{request_path: "/login"} = conn, %{"session" => auth_params}) do
     case login(auth_params) do
       {:ok, user} ->
         conn
@@ -25,8 +24,28 @@ defmodule StoneBankWeb.PageController do
     end
   end
 
+  def create(%{request_path: "/api/login"} = conn, %{"session" => auth_params}) do
+    case login(auth_params) do
+      {:ok, user} ->
+        {:ok, expires_at} =
+          Timex.now() |> Timex.shift(minutes: +2) |> Timex.format("{ISO:Extended}")
+
+        conn
+        |> put_session(:current_user_id, user.id)
+        |> put_session(:expires_at, expires_at)
+        |> configure_session(renew: true)
+        |> redirect(to: Routes.bank_account_path(conn, :index))
+
+      :error ->
+        conn
+        |> put_status(:forbidden)
+        |> put_view(StoneBankWeb.ErrorView)
+        |> render(:"403")
+    end
+  end
+
   defp login(%{"email" => email, "password" => password}) do
-    user = StoneBank.Accounts.get_user_by_email(String.downcase(email))
+    user = StoneBank.Accounts.get_user_by_email!(String.downcase(email))
 
     case StoneBank.Accounts.Encryption.validate_password(user, password) do
       true -> {:ok, user}

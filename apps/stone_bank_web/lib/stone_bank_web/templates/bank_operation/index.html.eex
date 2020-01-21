@@ -3,22 +3,34 @@
 <table>
   <thead>
     <tr>
-      <th>Value</th>
       <th>Type</th>
-
-      <th></th>
+      <th>Source</th>
+      <th>Destiny</th>
+      <th>Value</th>
     </tr>
   </thead>
   <tbody>
+  <%= form_for @conn, Routes.bank_operation_path(@conn, :index), [as: :filter, method: "get"], fn f -> %>
+    <%= datetime_local_input f, :initial_date %>
+    <%= datetime_local_input f, :final_date %>
+  <div>
+    <%= submit "Filter" %>
+  </div>
+<% end %>
+
 <%= for bank_operation <- @bank_operations do %>
     <tr>
-      <td><%= bank_operation.value %></td>
       <td><%= bank_operation.type %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.bank_operation_path(@conn, :show, bank_operation) %></span>
-      </td>
+      <td><%= bank_operation.bank_account_id %></td> 
+      <td><%= bank_operation.bank_account_destiny_id %></td> 
+      <td><%= bank_operation.value/100 %></td> 
     </tr>
 <% end %>
+    <tr>
+      <td>Total</td>
+      <td></td> 
+      <td></td> 
+      <td><%= Enum.reduce(@bank_operations, 0, fn x, acc -> x.value + acc end)/100 %></td> 
+    </tr>
   </tbody>
 </table>
