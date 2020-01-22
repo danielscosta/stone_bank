@@ -1,4 +1,8 @@
 defmodule StoneBank.Accounts.User do
+  @moduledoc """
+    This scheme is a representation of the system user both admin and account owners.
+    Only admin is allowed to see backoffice web pages.
+  """
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -18,7 +22,7 @@ defmodule StoneBank.Accounts.User do
     timestamps()
   end
 
-  @required ~w(name email encrypted_password)a
+  @required ~w(name email encrypted_password admin)a
 
   @doc false
   def changeset(user, attrs) do

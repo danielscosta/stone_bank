@@ -17,6 +17,7 @@ defmodule StoneBankWeb.UserControllerTest do
   end
 
   describe "index" do
+    @tag :admin_authenticated
     test "lists all users", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Users"
@@ -50,6 +51,7 @@ defmodule StoneBankWeb.UserControllerTest do
   describe "edit user" do
     setup [:create_user]
 
+    @tag :admin_authenticated
     test "renders form for editing chosen user", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_path(conn, :edit, user))
       assert html_response(conn, 200) =~ "Edit User"
@@ -59,6 +61,7 @@ defmodule StoneBankWeb.UserControllerTest do
   describe "update user" do
     setup [:create_user]
 
+    @tag :admin_authenticated
     test "redirects when data is valid", %{conn: conn, user: user} do
       conn = put(conn, Routes.user_path(conn, :update, user), user: @update_attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
@@ -67,6 +70,7 @@ defmodule StoneBankWeb.UserControllerTest do
       assert html_response(conn, 200) =~ "some updated email"
     end
 
+    @tag :admin_authenticated
     test "renders errors when data is invalid", %{conn: conn, user: user} do
       conn = put(conn, Routes.user_path(conn, :update, user), user: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit User"

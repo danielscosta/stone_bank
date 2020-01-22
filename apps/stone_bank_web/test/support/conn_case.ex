@@ -17,17 +17,23 @@ defmodule StoneBankWeb.ConnCase do
   """
 
   use ExUnit.CaseTemplate
+  use Phoenix.ConnTest
+
+  # The default endpoint for testing
+  @endpoint StoneBankWeb.Endpoint
 
   using do
     quote do
       # Import conveniences for testing with connections
-      use Phoenix.ConnTest
       alias StoneBankWeb.Router.Helpers, as: Routes
+      use Phoenix.ConnTest
 
       # The default endpoint for testing
       @endpoint StoneBankWeb.Endpoint
     end
   end
+
+  alias StoneBank.Accounts
 
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(StoneBank.Repo)
@@ -36,6 +42,40 @@ defmodule StoneBankWeb.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(StoneBank.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    conn =
+      cond do
+        tags[:admin_authenticated] == true ->
+          {:ok, admin_user} =
+            Accounts.create_user(%{
+              email: "some admin mail",
+              name: "some admin name",
+              password: "some admin password",
+              admin: true
+            })
+
+          build_conn()
+          |> get("/login")
+          |> post("/login", %{
+            "session" => %{"email" => admin_user.email, "password" => "some admin password"}
+          })
+
+        tags[:authenticated] == true ->
+          {:ok, user} =
+            Accounts.create_user(%{
+              email: "some mail",
+              name: "some name",
+              password: "some password"
+            })
+
+          build_conn()
+          |> post("/api/login", %{
+            "session" => %{"email" => user.email, "password" => "some password"}
+          })
+
+        true ->
+          build_conn()
+      end
+
+    {:ok, conn: conn}
   end
 end

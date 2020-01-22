@@ -1,4 +1,7 @@
 defmodule StoneBankWeb.Plugs.Auth do
+  @moduledoc """
+   This module verifies api authetication on requests.
+  """
   import Plug.Conn
   import Phoenix.Controller
 

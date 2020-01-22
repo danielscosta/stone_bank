@@ -18,7 +18,7 @@ defmodule StoneBankWeb.UserController do
   def create(conn, %{"user" => user_params}) do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
-        if String.to_atom(user_params["create_account"]) do
+        if user_params["create_account"] && String.to_atom(user_params["create_account"]) do
           Products.create_bank_account(%{user_id: user.id, balance: 100_000})
         end
 

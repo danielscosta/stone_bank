@@ -1,4 +1,7 @@
 defmodule StoneBankWeb.Plugs.AdminAuth do
+  @moduledoc """
+   This module verifies webpage authetication when is required.
+  """
   import Plug.Conn
   import Phoenix.Controller
 

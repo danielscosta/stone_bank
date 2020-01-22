@@ -1,7 +1,5 @@
 defmodule StoneBankWeb.BankAccountController do
   use StoneBankWeb, :controller
-
-  alias StoneBank.Accounts
   alias StoneBank.Products
   alias StoneBank.Products.BankAccount
 
@@ -12,16 +10,30 @@ defmodule StoneBankWeb.BankAccountController do
     render(conn, "index.json", bank_accounts: bank_accounts)
   end
 
-  def create(conn, %{"bank_account" => bank_account_params}) do
+  def create(conn, %{"bank_account" => %{"balance" => balance}}) do
+    balance =
+      if is_nil(balance) do
+        nil
+      else
+        trunc(balance * 100)
+      end
+
     with {:ok, %BankAccount{} = bank_account} <-
            Products.create_bank_account(
-             Map.put(bank_account_params, :user_id, get_session(conn, :current_user_id))
+             %{}
+             |> Map.put(:user_id, get_session(conn, :current_user_id))
+             |> Map.put(:balance, balance)
            ) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.bank_account_path(conn, :show, bank_account))
       |> render("show.json", bank_account: bank_account)
     end
+  end
+
+  def show(conn, %{"id" => id}) do
+    bank_account = Products.get_bank_account!(id)
+    render(conn, "show.json", bank_account: bank_account)
   end
 
   alias StoneBank.Registers.BankOperation

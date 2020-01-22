@@ -44,10 +44,12 @@ defmodule StoneBankWeb.PageController do
     end
   end
 
+  alias StoneBank.Accounts.Encryption
+
   defp login(%{"email" => email, "password" => password}) do
     user = StoneBank.Accounts.get_user_by_email!(String.downcase(email))
 
-    case StoneBank.Accounts.Encryption.validate_password(user, password) do
+    case Encryption.validate_password(user, password) do
       true -> {:ok, user}
       _ -> :error
     end

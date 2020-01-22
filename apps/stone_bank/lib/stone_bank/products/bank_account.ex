@@ -1,4 +1,7 @@
 defmodule StoneBank.Products.BankAccount do
+  @moduledoc """
+   This schema is a representation of bank account from user.
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

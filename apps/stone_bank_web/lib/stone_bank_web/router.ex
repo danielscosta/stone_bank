@@ -19,7 +19,7 @@ defmodule StoneBankWeb.Router do
 
     get "/login", PageController, :new
     post "/login", PageController, :create
-    resources "/users", UserController, only: [:new, :create]
+    resources "/users", UserController, only: [:new, :create, :show]
   end
 
   scope "/", StoneBankWeb do
@@ -27,7 +27,7 @@ defmodule StoneBankWeb.Router do
 
     get "/", PageController, :index
     delete "/", PageController, :delete
-    resources "/users", UserController, except: [:new, :delete, :create]
+    resources "/users", UserController, only: [:index, :edit, :update, :delete]
     resources "/bank_operations", BankOperationController, only: [:index]
   end
 
@@ -40,7 +40,7 @@ defmodule StoneBankWeb.Router do
   scope "/api", StoneBankWeb do
     pipe_through [:api, StoneBankWeb.Plugs.Auth]
 
-    resources "/bank_accounts", BankAccountController, only: [:create, :index]
+    resources "/bank_accounts", BankAccountController, only: [:create, :show, :index]
     put "/bank_accounts/deposit", BankAccountController, :deposit
     put "/bank_accounts/withdraw", BankAccountController, :withdraw
     put "/bank_accounts/transfer", BankAccountController, :transfer

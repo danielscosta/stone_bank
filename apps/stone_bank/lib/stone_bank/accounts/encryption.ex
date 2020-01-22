@@ -1,4 +1,7 @@
 defmodule StoneBank.Accounts.Encryption do
+  @moduledoc """
+   This module encrypt user password to save in database and verify if passed on login password is the same than stored.
+  """
   alias Bcrypt
   alias StoneBank.Accounts.User
 

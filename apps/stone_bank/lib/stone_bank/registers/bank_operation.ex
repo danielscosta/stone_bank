@@ -1,4 +1,7 @@
 defmodule StoneBank.Registers.BankOperation do
+  @moduledoc """
+   This schema is a representation of bank operation made like deposit, withdraw and transfer.
+  """
   use Ecto.Schema
   import Ecto.Changeset
 
