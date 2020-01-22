@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.21.2">
+    <meta name="project" content="StoneBank v0.1.0">
+    <title>API Reference — StoneBank v0.1.0</title>
+    <link rel="stylesheet" href="dist/html-de2388dc2f8074b0a4db.css" />
+    <script src="dist/sidebar_items-002005c261.js"></script>
+      <script src="docs_config.js"></script>
+    <script async src="dist/html-de2388dc2f8074b0a4db.js"></script>
+  </head>
+  <body data-type="extras">
+    <script>try { if(localStorage.getItem('night-mode') === 'true') document.body.className += ' night-mode'; } catch (e) { }</script>
+<div class="main">
+
+<button class="sidebar-button sidebar-toggle">
+  <span class="icon-menu" title="Collapse/expand sidebar"></span>
+</button>
+
+<section class="sidebar">
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button">
+      <span class="icon-search" aria-hidden="true"></span>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button">
+      <span class="icon-cross" title="Cancel search"></span>
+    </button>
+    <label class="search-label">
+      <input name="q" type="text" id="search-list" class="search-input" placeholder="Search..." aria-label="Search" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectDetails">
+      <a href="http://stone_bank.gigalixirapp.com" class="sidebar-projectName">
+StoneBank      </a>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+      <a href="http://stone_bank.gigalixirapp.com">
+        <img src="assets/logo.png" alt="StoneBank" class="sidebar-projectImage">
+      </a>
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+
+
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+<h1>
+  <small class="app-vsn">StoneBank v0.1.0</small>
+  API Reference
+</h1>
+
+  <section class="details-list">
+    <h2 id="modules" class="section-heading">
+  <a href="#modules" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Modules
+</h2>
+
+    <div class="summary">
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBank.html">StoneBank</a>
+  </div>
+    <div class="summary-synopsis"><p>StoneBank keeps the contexts that define your domain
+and business logic.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBank.Accounts.html">StoneBank.Accounts</a>
+  </div>
+    <div class="summary-synopsis"><p>The Accounts context.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBank.Accounts.Encryption.html">StoneBank.Accounts.Encryption</a>
+  </div>
+    <div class="summary-synopsis"><p> This module encrypt user password to save in database and verify if passed on login password is the same than stored.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBank.Accounts.User.html">StoneBank.Accounts.User</a>
+  </div>
+    <div class="summary-synopsis"><p>  This scheme is a representation of the system user both admin and account owners.
+  Only admin is allowed to see backoffice web pages.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBank.Products.html">StoneBank.Products</a>
+  </div>
+    <div class="summary-synopsis"><p>The Products context.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBank.Products.BankAccount.html">StoneBank.Products.BankAccount</a>
+  </div>
+    <div class="summary-synopsis"><p> This schema is a representation of bank account from user.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBank.Registers.html">StoneBank.Registers</a>
+  </div>
+    <div class="summary-synopsis"><p>The Registers context.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBank.Registers.BankOperation.html">StoneBank.Registers.BankOperation</a>
+  </div>
+    <div class="summary-synopsis"><p> This schema is a representation of bank operation made like deposit, withdraw and transfer.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBank.Repo.html">StoneBank.Repo</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.html">StoneBankWeb</a>
+  </div>
+    <div class="summary-synopsis"><p>The entrypoint for defining your web interface, such
+as controllers, views, channels and so on.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.BankAccountController.html">StoneBankWeb.BankAccountController</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.BankAccountView.html">StoneBankWeb.BankAccountView</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.BankOperationController.html">StoneBankWeb.BankOperationController</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.BankOperationView.html">StoneBankWeb.BankOperationView</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.ChangesetView.html">StoneBankWeb.ChangesetView</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.Endpoint.html">StoneBankWeb.Endpoint</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.ErrorHelpers.html">StoneBankWeb.ErrorHelpers</a>
+  </div>
+    <div class="summary-synopsis"><p>Conveniences for translating and building error messages.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.ErrorView.html">StoneBankWeb.ErrorView</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.FallbackController.html">StoneBankWeb.FallbackController</a>
+  </div>
+    <div class="summary-synopsis"><p>Translates controller action results into valid <a href="https://hexdocs.pm/plug/1.8.3/Plug.Conn.html"><code class="inline">Plug.Conn</code></a> responses.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.Gettext.html">StoneBankWeb.Gettext</a>
+  </div>
+    <div class="summary-synopsis"><p>A module providing Internationalization with a gettext-based API.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.LayoutView.html">StoneBankWeb.LayoutView</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.PageController.html">StoneBankWeb.PageController</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.PageView.html">StoneBankWeb.PageView</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.Plugs.AdminAuth.html">StoneBankWeb.Plugs.AdminAuth</a>
+  </div>
+    <div class="summary-synopsis"><p> This module verifies webpage authetication when is required.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.Plugs.Auth.html">StoneBankWeb.Plugs.Auth</a>
+  </div>
+    <div class="summary-synopsis"><p> This module verifies api authetication on requests.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.Router.html">StoneBankWeb.Router</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.Router.Helpers.html">StoneBankWeb.Router.Helpers</a>
+  </div>
+    <div class="summary-synopsis"><p>Module with named helpers generated from StoneBankWeb.Router.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.UserController.html">StoneBankWeb.UserController</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="StoneBankWeb.UserView.html">StoneBankWeb.UserView</a>
+  </div>
+</div>
+    </div>
+  </section>
+
+
+      <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.21.2),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+        </p>
+        <p>
+          <button class="line footer-button night-mode-toggle">
+            Toggle night mode
+          </button>
+          <button class="line footer-button tooltips-toggle">
+            <span class="tooltips-option-disable">Disable tooltips</span>
+            <span class="tooltips-option-enable">Enable tooltips</span>
+          </button>
+          <button class="line footer-button display-shortcuts-help">
+            Display keyboard shortcuts
+          </button>
+          <button class="line footer-button display-quick-switch">
+            Go to a HexDocs package
+          </button>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  </body>
+</html>

@@ -25,7 +25,16 @@ defmodule StoneBank.Umbrella.MixProject do
           quiet: true
         ]
       ],
-      version: "0.1.0"
+      version: "0.1.0",
+      name: "StoneBank",
+      source_url: "https://github.com/danielscosta/stone_bank",
+      homepage_url: "http://stone_bank.gigalixirapp.com",
+      docs: [
+        # The main page in the docs
+        main: "StoneBank",
+        logo: "logo.png",
+        extras: ["README.md"]
+      ]
     ]
   end
 

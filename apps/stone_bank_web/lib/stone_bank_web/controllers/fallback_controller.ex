@@ -20,7 +20,7 @@ defmodule StoneBankWeb.FallbackController do
     |> render(:"404")
   end
 
-  def call(conn, {:error, :back_operation, nil, _}) do
+  def call(conn, {:error, :bank_operation, nil, _}) do
     conn
     |> put_status(:unprocessable_entity)
     |> put_view(StoneBankWeb.ErrorView)

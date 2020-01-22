@@ -67,7 +67,7 @@ defmodule StoneBank.Products do
   ## Examples
 
       iex> deposit_bank_account(%{value: value, bank_account_id: bank_account_id})
-      {:ok, %{update_bank_account: 1, back_operation: back_operation}}
+      {:ok, %{update_bank_account: 1, bank_operation: bank_operation}}
 
       iex> deposit_bank_account(%{value: value, bank_account_id: bank_account_id})
       {:error, _}
@@ -85,7 +85,7 @@ defmodule StoneBank.Products do
 
       {:ok, number}
     end)
-    |> Multi.run(:back_operation, fn _repo, %{update_bank_account: update_bank_account} ->
+    |> Multi.run(:bank_operation, fn _repo, %{update_bank_account: update_bank_account} ->
       case update_bank_account do
         1 ->
           Registers.create_bank_operation(%{
@@ -98,10 +98,10 @@ defmodule StoneBank.Products do
           {:error, nil}
       end
     end)
-    |> Multi.run(:send_email, fn _repo, %{back_operation: back_operation} ->
+    |> Multi.run(:send_email, fn _repo, %{bank_operation: bank_operation} ->
       ## Here will be the send of a email
       Logger.info(
-        "Back Account Deposit made #{back_operation.bank_account_id}: #{back_operation.value}"
+        "Back Account Deposit made #{bank_operation.bank_account_id}: #{bank_operation.value}"
       )
 
       {:ok, nil}
@@ -115,7 +115,7 @@ defmodule StoneBank.Products do
   ## Examples
 
       iex> withdraw_bank_account(%{value: value, bank_account_id: bank_account_id})
-      {:ok, %{update_bank_account: 1, back_operation: back_operation}}
+      {:ok, %{update_bank_account: 1, bank_operation: bank_operation}}
 
       iex> withdraw_bank_account(%{value: value, bank_account_id: bank_account_id})
       {:error, _}
@@ -134,7 +134,7 @@ defmodule StoneBank.Products do
 
       {:ok, number}
     end)
-    |> Multi.run(:back_operation, fn _repo, %{update_bank_account: update_bank_account} ->
+    |> Multi.run(:bank_operation, fn _repo, %{update_bank_account: update_bank_account} ->
       case update_bank_account do
         1 ->
           Registers.create_bank_operation(%{
@@ -147,10 +147,10 @@ defmodule StoneBank.Products do
           {:error, nil}
       end
     end)
-    |> Multi.run(:send_email, fn _repo, %{back_operation: back_operation} ->
+    |> Multi.run(:send_email, fn _repo, %{bank_operation: bank_operation} ->
       ## Here will be the send of a email
       Logger.info(
-        "Back Account Withdraw made #{back_operation.bank_account_id}: #{back_operation.value}"
+        "Back Account Withdraw made #{bank_operation.bank_account_id}: #{bank_operation.value}"
       )
 
       {:ok, nil}
@@ -164,7 +164,7 @@ defmodule StoneBank.Products do
   ## Examples
 
       iex> transfer_bank_account(%{value: value, bank_account_id: bank_account_id, bank_account_destiny_id: bank_account_destiny_id})
-      {:ok, %{update_bank_account: 1, update_bank_account_destiny: 1, back_operation: back_operation}}
+      {:ok, %{update_bank_account: 1, update_bank_account_destiny: 1, bank_operation: bank_operation}}
 
       iex> transfer_bank_account(%{value: value, bank_account_id: bank_account_id})
       {:error, _}
@@ -205,7 +205,7 @@ defmodule StoneBank.Products do
           {:error, nil}
       end
     end)
-    |> Multi.run(:back_operation, fn _repo,
+    |> Multi.run(:bank_operation, fn _repo,
                                      %{update_bank_account_destiny: update_bank_account_destiny} ->
       case update_bank_account_destiny do
         1 ->
@@ -220,12 +220,12 @@ defmodule StoneBank.Products do
           {:error, nil}
       end
     end)
-    |> Multi.run(:send_email, fn _repo, %{back_operation: back_operation} ->
+    |> Multi.run(:send_email, fn _repo, %{bank_operation: bank_operation} ->
       ## Here will be the send of a email
       Logger.info(
-        "Back Account Trasfer made #{back_operation.bank_account_id} to #{
-          back_operation.bank_account_destiny_id
-        }: #{back_operation.value}"
+        "Back Account Trasfer made #{bank_operation.bank_account_id} to #{
+          bank_operation.bank_account_destiny_id
+        }: #{bank_operation.value}"
       )
 
       {:ok, nil}

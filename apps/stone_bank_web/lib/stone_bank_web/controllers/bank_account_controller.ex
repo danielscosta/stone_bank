@@ -39,7 +39,7 @@ defmodule StoneBankWeb.BankAccountController do
   alias StoneBank.Registers.BankOperation
 
   def deposit(conn, %{"id" => id, "value" => value}) do
-    with {:ok, %{back_operation: %BankOperation{}}} <-
+    with {:ok, %{bank_operation: %BankOperation{}}} <-
            Products.deposit_bank_account(%{
              bank_account_id: id,
              user_id: get_session(conn, :current_user_id),
@@ -51,7 +51,7 @@ defmodule StoneBankWeb.BankAccountController do
   end
 
   def withdraw(conn, %{"id" => id, "value" => value}) do
-    with {:ok, %{back_operation: %BankOperation{}}} <-
+    with {:ok, %{bank_operation: %BankOperation{}}} <-
            Products.withdraw_bank_account(%{
              bank_account_id: id,
              user_id: get_session(conn, :current_user_id),
@@ -67,7 +67,7 @@ defmodule StoneBankWeb.BankAccountController do
         "bank_account_destiny_id" => bank_account_destiny_id,
         "value" => value
       }) do
-    with {:ok, %{back_operation: %BankOperation{}}} <-
+    with {:ok, %{bank_operation: %BankOperation{}}} <-
            Products.transfer_bank_account(%{
              bank_account_id: id,
              user_id: get_session(conn, :current_user_id),

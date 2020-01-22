@@ -31,6 +31,20 @@ defmodule StoneBank.RegistersTest do
       assert Registers.list_bank_operations() == [bank_operation]
     end
 
+    test "list_bank_operations/0 returns filtered bank_operations" do
+      bank_operation = bank_operation_fixture()
+
+      assert Registers.list_bank_operations_between_dates(
+               ~N[2020-01-01 14:00:00],
+               ~N[2020-01-01 15:00:00]
+             ) == []
+
+      assert Registers.list_bank_operations_between_dates(
+               ~N[2020-01-01 14:00:00],
+               bank_operation.inserted_at
+             ) == [bank_operation]
+    end
+
     test "get_bank_operation!/1 returns the bank_operation with given id" do
       bank_operation = bank_operation_fixture()
       assert Registers.get_bank_operation!(bank_operation.id) == bank_operation
