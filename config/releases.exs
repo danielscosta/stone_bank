@@ -2,9 +2,9 @@ import Config
 
 config :stone_bank, StoneBank.Repo,
   hostname: System.get_env("PG_HOST"),
-  username: "postgres",
-  password: "postgres",
-  database: "stone_bank",
+  username: System.get_env("PG_USERNAME") || "postgres",
+  password: System.get_env("PG_PASSWORD") || "postgres",
+  database: System.get_env("PG_DATABASE") || "stone_bank",
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 config :stone_bank_web, StoneBankWeb.Endpoint,

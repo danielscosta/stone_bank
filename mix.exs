@@ -28,7 +28,7 @@ defmodule StoneBank.Umbrella.MixProject do
       version: "0.1.0",
       name: "StoneBank",
       source_url: "https://github.com/danielscosta/stone_bank",
-      homepage_url: "http://stone_bank.gigalixirapp.com",
+      homepage_url: "http://cute-everlasting-cero.gigalixirapp.com",
       docs: [
         # The main page in the docs
         main: "StoneBank",
