@@ -31,3 +31,11 @@ Run release of the phoenix server:
 - Do Login with your Admin User
 
 - See the bank operation that you want
+
+## Test script ([Gigalixir](http://cute-everlasting-cero.gigalixirapp.com/))
+
+ - Admin User to acess Web pages (user: admin@teste.com password: admin)
+
+ - Create users at will
+
+ - Use Postman(Use StoneBank.postman_collection.json file) to call API and make what you want
