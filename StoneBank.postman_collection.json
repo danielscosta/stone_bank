@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "51336fc6-b3e0-414a-b474-04185b2839b8",
+		"_postman_id": "d080d201-fb50-4649-8cb4-f9d7b6b32e38",
 		"name": "StoneBank",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -8,10 +8,30 @@
 		{
 			"name": "Login",
 			"request": {
-				"method": "GET",
-				"header": [],
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"session\":{\n\t\t\"email\":\"teste@teste.com\",\n\t\t\"password\": \"teste\"\n\t}\n}"
+				},
 				"url": {
-					"raw": ""
+					"raw": "https://cute-everlasting-cero.gigalixirapp.com/api/login",
+					"protocol": "https",
+					"host": [
+						"cute-everlasting-cero",
+						"gigalixirapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"login"
+					]
 				},
 				"description": "Do Login"
 			},
@@ -23,12 +43,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:4000/api/bank_accounts",
-					"protocol": "http",
+					"raw": "https://cute-everlasting-cero.gigalixirapp.com/api/bank_accounts",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"cute-everlasting-cero",
+						"gigalixirapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"bank_accounts"
@@ -50,15 +71,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"value\": 5000,\n\t\"id\": \"9b889017-aad1-420f-8b78-b5a86b6f594d\"\n}"
+					"raw": "{\n\t\"value\": 5000,\n\t\"id\": \"4a11d700-f2c4-4892-b230-8a4d6a559024\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/bank_accounts/deposit",
-					"protocol": "http",
+					"raw": "https://cute-everlasting-cero.gigalixirapp.com/api/bank_accounts/deposit",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"cute-everlasting-cero",
+						"gigalixirapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"bank_accounts",
@@ -81,15 +103,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"value\": 2000,\n\t\"id\": \"9b889017-aad1-420f-8b78-b5a86b6f594d\"\n}"
+					"raw": "{\n\t\"value\": 2000,\n\t\"id\": \"4a11d700-f2c4-4892-b230-8a4d6a559024\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/bank_accounts/withdraw",
-					"protocol": "http",
+					"raw": "https://cute-everlasting-cero.gigalixirapp.com/api/bank_accounts/withdraw",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"cute-everlasting-cero",
+						"gigalixirapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"bank_accounts",
@@ -112,15 +135,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"value\": 1000,\n\t\"id\": \"6ebdd6cc-88c5-49bf-97e5-2e1be4aa53af\",\n\t\"bank_account_destiny_id\": \"9b889017-aad1-420f-8b78-b5a86b6f594d\"\n}"
+					"raw": "{\n\t\"value\": 1000,\n\t\"id\": \"4a11d700-f2c4-4892-b230-8a4d6a559024\",\n\t\"bank_account_destiny_id\": \"4a11d700-f2c4-4892-b230-8a4d6a559024\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/bank_accounts/transfer",
-					"protocol": "http",
+					"raw": "https://cute-everlasting-cero.gigalixirapp.com/api/bank_accounts/transfer",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"cute-everlasting-cero",
+						"gigalixirapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"bank_accounts",
